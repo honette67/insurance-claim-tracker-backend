@@ -35,6 +35,10 @@ public interface ClaimRepository extends JpaRepository<Claim, UUID>{
                   @Param("date") LocalDate date,
                   @Param("rejected") ClaimStatus rejected,
                   @Param("settled") ClaimStatus settled);
+
+    //Bonus
+    long countByClaimDate(LocalDate date);
+    long countByStatus(ClaimStatus status);
     
 
 }

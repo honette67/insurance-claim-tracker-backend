@@ -1,0 +1,26 @@
+package com.insurance.claim_tracker.controller;
+
+import java.util.Map;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.insurance.claim_tracker.service.DashboardService;
+
+@RestController 
+@RequestMapping("/api/dashboard")
+public class DashboardController {
+
+    private final DashboardService dashboardService;
+
+    public DashboardController(DashboardService dashboardService){
+        this.dashboardService = dashboardService;
+    }
+
+    @GetMapping("/summary")
+    public Map<String, Long> getSummary(){
+        return dashboardService.getSummary();
+    }
+
+}

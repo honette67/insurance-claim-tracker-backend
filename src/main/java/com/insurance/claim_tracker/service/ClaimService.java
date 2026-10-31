@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -122,5 +124,11 @@ public class ClaimService {
     public String cancelDay(UUID adjusterId, LocalDate date){
         int count = claimRepository.cancelDay(adjusterId,date,ClaimStatus.REJECTED, ClaimStatus.SETTLED);
         return count + "claims cancelled";
+    }
+
+    //Bonus 2
+    public Page<Claim> getPage(Pageable pageable){
+        return claimRepository.findAll(pageable);
+        
     }
 }
