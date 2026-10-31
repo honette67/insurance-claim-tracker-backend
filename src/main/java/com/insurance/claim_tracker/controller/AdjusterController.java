@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -76,6 +77,39 @@ public class AdjusterController {
     public List<Adjuster> getByClaimType(@RequestParam String name){
         return adjusterService.getByClaimType(name);
     }
+
+    //D3
+    @PutMapping("/{adjusterId}/claimtypes/{claimTypeId}")
+    public ResponseEntity<String> addClaimType(@PathVariable UUID adjusterId,
+                                               @PathVariable UUID claimTypeId){
+        String message = adjusterService.addClaimType(adjusterId, claimTypeId);
+        if(message.equals("The adjuster with that id does not exist")
+                || message.equals("That claim type does not exist")){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
+        } else if (message.equals("The adjuster already has that claim type")){
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(message);
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body(message);
+        }
+
+    }
+
+    //D4
+    @PatchMapping("/{adjusterId}/branch")
+    public ResponseEntity<String> changeBranch(@PathVariable UUID adjusterId,
+                                               @RequestParam int branchNumber){
+        String message = adjusterService.changeBranch(adjusterId, branchNumber);
+        if(message.equals("The adjuster with that id does not exist")
+                || message.equals("The branch with taht branchNumber does not exist")){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
+        } else if (message.equals("That branch is taken by another adjuster")){
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(message);
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body(message);
+        }
+    }
+    
+    
 
 
 }

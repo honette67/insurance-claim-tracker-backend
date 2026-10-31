@@ -17,6 +17,9 @@ public interface ClaimRepository extends JpaRepository<Claim, UUID>{
 
     //B3
     List<Claim> findByClaimDateBetweenOrderByClaimDateAsc(LocalDate start, LocalDate end);
+
+    //D1
+    boolean existsByAdjusterIdAndClaimDateAndStatusNot(UUID adjusterId, LocalDate claimDate, ClaimStatus status);
     
 
 }

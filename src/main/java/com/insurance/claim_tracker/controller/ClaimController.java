@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -34,7 +35,13 @@ public class ClaimController {
     @PostMapping("/save")
     public ResponseEntity<String> save(@RequestBody Claim claim){
         String message = claimService.save(claim);
-        return ResponseEntity.status(HttpStatus.CREATED).body(message);
+        if(message.equals("Claim date cannot be in the past")){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(message);
+        } else if (message.equals("Adjuster already has a claim to assess on that date")){
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(message);
+        } else{
+            return ResponseEntity.status(HttpStatus.CREATED).body(message);
+        }
     }
 
     @GetMapping("/all")
@@ -84,6 +91,19 @@ public class ClaimController {
         LocalDate startDate = LocalDate.parse(start);
         LocalDate endDate = LocalDate.parse(end);
         return claimService.getBetween(startDate, endDate);
+    }
+
+    //D2
+    @PatchMapping("/{id}/status")
+    public ResponseEntity<String> updateStatus(@PathVariable UUID id, @RequestParam ClaimStatus status){
+        String message = claimService.updateStatus(id, status);
+        if(message.equals("The claim with that id does not exist")){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
+        } else if (message.startsWith("Cannot change status")){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(message);
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body(message);
+        }
     }
 
 

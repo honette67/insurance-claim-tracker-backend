@@ -21,6 +21,16 @@ public class ClaimService {
     }
 
     public String save(Claim claim){
+        if (claim.getClaimDate().isBefore(LocalDate.now())){
+            return "Claim date cannot be in the past";
+        }
+        if(claim.getAdjuster() != null
+            && claimRepository.existsByAdjusterIdAndClaimDateAndStatusNot(
+                claim.getAdjuster().getId(), claim.getClaimDate(), ClaimStatus.REJECTED)){
+                    
+                    return "Adjuster already has a claim to assess on that date";
+         }
+        claim.setStatus(ClaimStatus.FILED);
         claimRepository.save(claim);
         return "Claim saved successfully";
     }
@@ -68,5 +78,28 @@ public class ClaimService {
     //B3
     public List<Claim> getBetween(LocalDate start, LocalDate end){
         return claimRepository.findByClaimDateBetweenOrderByClaimDateAsc(start, end);
+    }
+
+    //D2
+    public String updateStatus(UUID id, ClaimStatus newStatus){
+        Optional<Claim> found = claimRepository.findById(id);
+        if(found.isEmpty()){
+            return "The claim with that id does not exist";
+        }
+        Claim claim = found.get();
+        ClaimStatus current = claim.getStatus();
+
+        boolean allowed = (current == ClaimStatus.FILED
+            && (newStatus == ClaimStatus.UNDER_ASSESSMENT || newStatus == ClaimStatus.REJECTED))
+            || (current == ClaimStatus.UNDER_ASSESSMENT
+            && (newStatus == ClaimStatus.SETTLED || newStatus == ClaimStatus.REJECTED));
+        
+        if (!allowed){
+            return "Cannot change status from " + current + " to " +newStatus;
+        }
+
+        claim.setStatus(newStatus);
+        claimRepository.save(claim);
+        return "Claim Status updated successfully";
     }
 }
