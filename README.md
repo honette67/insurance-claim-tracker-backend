@@ -68,17 +68,19 @@ Java 17, Spring Boot 3, Spring Web, Spring Data JPA, PostgreSQL, Maven
 
 | Part | Content | Status |
 
-|---|---|---|
 
-| A | Domain model and CRUD | Done |
 
-| B | Derived queries | Done |
+| A | Domain model and CRUD    | Done |
 
-| C | JPQL with joins | Done |
+| B | Derived queries          | Done |
 
-| D | Business rules | To do |
+| C | JPQL with joins          | Done |
 
-| E | Payout entity | To do |
+| D | Business rules           | Done |
 
-| F | Reports and bulk updates | To do |
+| E | Payout entity            | Done |
+
+| F | Reports and bulk updates | Done |
+
+|Bonus| Dashboard and Pagination |Done|
 

@@ -51,7 +51,7 @@
           }
         },
         "url": {
-          "raw": "http://localhost:8084/api/claimtypes/all",
+          "raw": "http://localhost:8084/api/payouts/policyholder/POL-2024-0158",
           "protocol": "http",
           "host": [
             "localhost"
@@ -59,8 +59,9 @@
           "port": "8084",
           "path": [
             "api",
-            "claimtypes",
-            "all"
+            "payouts",
+            "policyholder",
+            "POL-2024-0158"
           ]
         }
       },
@@ -245,6 +246,331 @@
             {
               "key": "end",
               "value": "2026-10-31"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "D1",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"claimDate\": \"2026-12-01\",\r\n  \"status\": \"SETTLED\",\r\n  \"incidentDescription\": \"D1 test STATUS\",\r\n  \"claimedAmount\": 100000,\r\n  \"policyholder\": { \"id\": \"2debf958-c0c6-489a-9d76-228ebdf260e5\" },\r\n  \"adjuster\": { \"id\": \"84d5b44b-b595-4d4a-9719-318223cc1b5b\" }\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8084/api/claims/save",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8084",
+          "path": [
+            "api",
+            "claims",
+            "save"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "D2",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8084/api/claims/c21e68e0-ca6e-415d-b9b4-923d37a8b098/status?status=FILED",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8084",
+          "path": [
+            "api",
+            "claims",
+            "c21e68e0-ca6e-415d-b9b4-923d37a8b098",
+            "status"
+          ],
+          "query": [
+            {
+              "key": "status",
+              "value": "FILED"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "D3",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8084/api/adjusters/84d5b44b-b595-4d4a-9719-318223cc1b5b/claimtypes/044490ea-3a84-4541-883f-01b1abdcacbb",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8084",
+          "path": [
+            "api",
+            "adjusters",
+            "84d5b44b-b595-4d4a-9719-318223cc1b5b",
+            "claimtypes",
+            "044490ea-3a84-4541-883f-01b1abdcacbb"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "D4",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8084/api/adjusters/84d5b44b-b595-4d4a-9719-318223cc1b5b/branch?branchNumber=3",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8084",
+          "path": [
+            "api",
+            "adjusters",
+            "84d5b44b-b595-4d4a-9719-318223cc1b5b",
+            "branch"
+          ],
+          "query": [
+            {
+              "key": "branchNumber",
+              "value": "3"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "E1",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"payoutItem\": \"Bumper replacement\",\r\n  \"remarks\": \"Paid to Gikondo Garage\",\r\n  \"amountPaid\": 120000\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8084/api/payouts/save?claimId=b849381c-501a-4e55-9215-3bf965434b0e",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8084",
+          "path": [
+            "api",
+            "payouts",
+            "save"
+          ],
+          "query": [
+            {
+              "key": "claimId",
+              "value": "b849381c-501a-4e55-9215-3bf965434b0e"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "E2",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8084/api/payouts/policyholder/POL-2024-0157",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8084",
+          "path": [
+            "api",
+            "payouts",
+            "policyholder",
+            "POL-2024-0157"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "E3",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8084/api/payouts/delete/8b59be1c-5258-4b78-8355-badb36d8e0b3",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8084",
+          "path": [
+            "api",
+            "payouts",
+            "delete",
+            "8b59be1c-5258-4b78-8355-badb36d8e0b3"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "F1",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8084/api/claims/stats/by-status",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8084",
+          "path": [
+            "api",
+            "claims",
+            "stats",
+            "by-status"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "F2",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "   {\r\n     \"claimDate\": \"2026-12-10\",\r\n     \"status\": \"FILED\",\r\n     \"incidentDescription\": \"F2 test claim\",\r\n     \"claimedAmount\": 100000,\r\n     \"policyholder\": { \"id\": \"2debf958-c0c6-489a-9d76-228ebdf260e5\" },\r\n     \"adjuster\": { \"id\": \"84d5b44b-b595-4d4a-9719-318223cc1b5b\" }\r\n   }",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8084/api/claims/cancel-day?adjusterId=dc708d5a-95da-4e81-97bb-99d10317d8dc&date=2026-10-05",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8084",
+          "path": [
+            "api",
+            "claims",
+            "cancel-day"
+          ],
+          "query": [
+            {
+              "key": "adjusterId",
+              "value": "dc708d5a-95da-4e81-97bb-99d10317d8dc"
+            },
+            {
+              "key": "date",
+              "value": "2026-10-05"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Dashboard",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8084/api/dashboard/summary",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8084",
+          "path": [
+            "api",
+            "dashboard",
+            "summary"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Pagination",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8084/api/claims/page?page=99&size=5&sort=claimDate,desc",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8084",
+          "path": [
+            "api",
+            "claims",
+            "page"
+          ],
+          "query": [
+            {
+              "key": "page",
+              "value": "99"
+            },
+            {
+              "key": "size",
+              "value": "5"
+            },
+            {
+              "key": "sort",
+              "value": "claimDate,desc"
             }
           ]
         }
