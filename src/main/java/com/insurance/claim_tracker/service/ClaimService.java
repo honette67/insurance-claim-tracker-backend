@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.insurance.claim_tracker.model.Claim;
 import com.insurance.claim_tracker.model.ClaimStatus;
@@ -109,5 +110,17 @@ public class ClaimService {
         claim.setStatus(newStatus);
         claimRepository.save(claim);
         return "Claim Status updated successfully";
+    }
+
+    //F1
+    public List<Object[]> getStatsByStatus(){
+        return claimRepository.countClaimsByStatus();
+    }
+
+    //F2
+    @Transactional 
+    public String cancelDay(UUID adjusterId, LocalDate date){
+        int count = claimRepository.cancelDay(adjusterId,date,ClaimStatus.REJECTED, ClaimStatus.SETTLED);
+        return count + "claims cancelled";
     }
 }

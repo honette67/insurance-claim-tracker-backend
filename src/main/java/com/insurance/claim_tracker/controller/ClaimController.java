@@ -108,5 +108,19 @@ public class ClaimController {
         }
     }
 
+    //F1
+    @GetMapping("/stats/by-status")
+    public List<Object[]> getStatsByStatus(){
+        return claimService.getStatsByStatus();
+    }
+
+    //F2
+    @PatchMapping("/cancel-day")
+    public ResponseEntity<String> cancelDay(@RequestParam UUID adjusterId, @RequestParam String date){
+        LocalDate day = LocalDate.parse(date);
+        String message = claimService.cancelDay(adjusterId, day);
+        return ResponseEntity.status(HttpStatus.OK).body(message);
+    }
+
 
 }
