@@ -10,14 +10,17 @@ import org.springframework.stereotype.Service;
 import com.insurance.claim_tracker.model.Claim;
 import com.insurance.claim_tracker.model.ClaimStatus;
 import com.insurance.claim_tracker.repository.ClaimRepository;
+import com.insurance.claim_tracker.repository.PayoutRepository;
 
 @Service 
 public class ClaimService {
 
     private final ClaimRepository claimRepository;
+    private final PayoutRepository payoutRepository;
 
-    public ClaimService(ClaimRepository claimRepository){
+    public ClaimService(ClaimRepository claimRepository, PayoutRepository payoutRepository){
         this.claimRepository = claimRepository;
+        this.payoutRepository = payoutRepository;
     }
 
     public String save(Claim claim){
@@ -62,9 +65,14 @@ public class ClaimService {
     }
 
     public String delete(UUID id){
-        if(!claimRepository.existsById(id)){
+        Optional<Claim> claim = claimRepository.findById(id);
+        if(claim.isEmpty()){
             return "The Claim with that id does not exist";
 
+        }
+        //E3
+        if(payoutRepository.existsByClaim(claim.get())){
+            return "That claim has payouts, delete them first";
         }
         claimRepository.deleteById(id);
         return "Claim deleted successfully";

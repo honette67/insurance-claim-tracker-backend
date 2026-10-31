@@ -74,6 +74,8 @@ public class ClaimController {
         String message = claimService.delete(id);
         if(message.equals("The claim with that id does not exist")){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
+        } else if (message.equals("That claim has payouts, delete them first")) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(message);
         } else {
             return ResponseEntity.status(HttpStatus.OK).body(message);
         }
